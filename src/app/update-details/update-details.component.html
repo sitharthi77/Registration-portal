@@ -1,0 +1,101 @@
+<section class="vh-100 gradient-custom">
+   <div class="container py-5 h-100">
+     <div class="row justify-content-center align-items-center h-100">
+       <div class="col-12 col-lg-9 col-xl-7">
+         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+           <div class="card-body p-4 p-md-5">
+             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Update Details</h3>
+
+<form >
+   <div>
+      <div class="row">
+         <div class="col-md-6 mb-4">
+             <div class="form-outline">
+           <label for="firstname">Firstname  </label>
+          
+           <input type="text"  value={{userobj.firstname}}  class="form-control form-control-lg" readonly>
+        </div>
+        </div>
+        <div class="col-md-6 mb-4">
+         <div class="form-outline">
+           <label for="lastname">Lastname  </label>
+           
+           <input type="text"  value={{userobj.lastname}}  class="form-control form-control-lg" readonly>
+        </div>
+        </div>
+        </div>
+        <div class="row">
+         <div class="col-md-6 mb-4">
+             <div class="form-outline">
+           <label for="email">Email  </label>
+           <input type="email"  value={{userobj.email}} class="form-control form-control-lg" >
+        </div>
+        </div>
+        <div class="col-md-6 mb-4">
+         <div class="form-outline">
+           <label for="password">Password  </label>
+         
+           <input type="text"  value={{userobj.password}} class="form-control form-control-lg"  readonly>
+       </div>
+       </div>
+       </div>
+       <div class="row">
+         <div class="col-md-6 mb-4">
+             <div class="form-outline">
+           <label for="dob">DOB</label>
+           <input type="text"  value={{userobj.dob}} class="form-control form-control-lg" readonly>
+      </div>
+      </div>
+      <div class="col-md-6 mb-4">
+         <div class="form-outline">
+            <label for="address">Address</label>
+            <input type="text"  value={{userobj.address}} class="form-control form-control-lg" >
+
+      </div>
+      </div>
+      </div>
+   
+      <div class="row">
+         <div class="col-md-6 mb-4">
+             <div class="form-outline">
+
+      <label for="pan">PAN</label>
+      <input type="text"  value={{userobj.pan}} class="form-control form-control-lg" >
+       
+      
+    </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="form-outline">
+       <label for="country">Country</label>
+       <input type="text" value={{userobj.country}} class="form-control form-control-lg">
+    </div>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+          <div class="form-outline">
+      <label for="state">State</label>
+      <input type="text" value={{userobj.state}} class="form-control form-control-lg" >
+   </div>
+   </div>
+   <div class="col-md-6 mb-4">
+      <div class="form-outline">
+      <label for="contactnumber">Contactnumber</label>
+      <input type="text" value={{userobj.contactnumber}} class="form-control form-control-lg" >
+   </div>
+   </div>
+   </div>
+  <div> 
+   <button type="submit" value="submit" class="btn btn-primary">Update</button>
+  </div>
+
+  </div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>

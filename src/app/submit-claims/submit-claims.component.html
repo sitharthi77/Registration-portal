@@ -1,0 +1,104 @@
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Submit Claims</h3>
+
+<form [formGroup]="claimsForm" (ngSubmit)="onFormSubmit()">
+   <div>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="form-outline">
+            <label for="memberId" class="form-label">MemberID</label>
+           <input type="text" formControlName="memberId" id="memberId" id="firstName" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && fval.memberId.errors }"/>
+           <div *ngIf="submitted && fval.memberId.errors" class="invalid-feedback">
+            <div *ngIf="fval.memberId.errors.required">MemberID is required</div>
+        </div>
+        </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+        <div class="form-outline">
+            <label for="firstname">Firstname</label>
+            <input type="text" formControlName="firstname" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && fval.firstname.errors }"/>
+            <div *ngIf="submitted && fval.firstname.errors" class="invalid-feedback">
+            <div *ngIf="fval.firstname.errors.required">Lastname is required</div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+          <div class="form-outline">
+            <label for="lastname">Lastname</label>
+            <input type="text" formControlName="lastname" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && fval.lastname.errors }"/>
+            <div *ngIf="submitted && fval.lastname.errors" class="invalid-feedback">
+            <div *ngIf="fval.lastname.errors.required">Lastname is required</div>
+            </div>
+        </div>
+        </div>
+        
+
+        
+        <div class="col-md-6 mb-4">
+
+          <div class="form-outline">
+              <label for="admissionDate">Date of Admission</label>
+              <input type="date" formControlName="admissionDate" id="admissionDate"  class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && fval.admissionDate.errors }"/>
+              <div *ngIf="submitted && fval.admissionDate.errors" class="invalid-feedback">
+                <div *ngIf="fval.admissionDate.errors.required">DOB is required</div>
+                </div>
+            </div>  
+            </div>  
+      </div>
+                  
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+            <label for="dischargeDate">Date of Discharge</label>
+            <input type="date" formControlName="dischargeDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.dischargeDate.errors }"/>
+            <div *ngIf="submitted && fval.dischargeDate.errors" class="invalid-feedback">
+              <div *ngIf="fval.dischargeDate.errors.required">DOB is required</div>
+              </div>
+          </div> 
+          </div>
+          
+                    
+           
+
+          <div class="col-md-6 mb-4">
+            <div class="form-outline">
+              <label for="Provider">Provider Name </label>
+              <input type="text" formControlName="Provider" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.Provider.errors }"/>
+              <div *ngIf="submitted && fval.Provider.errors" class="invalid-feedback">
+                <div *ngIf="fval.Provider.errors.required">Address is required</div>
+                </div>
+            </div> 
+            </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                <label for="billAmount">Total Bill Amount</label>
+                <input type="number" formControlName="billAmount" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.billAmount.errors }"/>
+                <div *ngIf="submitted && fval.billAmount.errors" class="invalid-feedback">
+                  <div *ngIf="fval.billAmount.errors.required">Address is required</div>
+                  </div>
+              </div>  
+              </div>
+              </div>               
+            
+     <button type="submit" value="submit" class="btn btn-primary">Submit Claims</button>
+     
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>

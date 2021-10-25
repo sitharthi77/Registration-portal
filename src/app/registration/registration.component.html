@@ -1,0 +1,179 @@
+
+
+
+
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Page</h3>
+
+<form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+  
+
+  
+   <div>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+          <div class="form-outline">
+           <label for="firstname">Firstname</label>
+           <input type="text" formControlName="firstname" class="form-control" [(ngModel)]="user.firstName" [ngClass]="{ 'is-invalid': submitted && fval.firstname.errors }"/>
+           <div *ngIf="submitted && fval.firstname.errors" class="invalid-feedback">
+            <div *ngIf="fval.firstname.errors.required">Firsttname is required</div>
+            <div *ngIf="fval.firstname.errors.pattern">Firstname should contain only alphabets and space</div>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="form-outline">
+            <label for="lastname">Lastname</label>
+            <input type="text" formControlName="lastname" class="form-control"  [(ngModel)]="user.lastName" [ngClass]="{ 'is-invalid': submitted && fval.lastname.errors }"/>
+            <div *ngIf="submitted && fval.lastname.errors" class="invalid-feedback">
+            <div *ngIf="fval.lastname.errors.required">Lastname is required</div>
+            <div *ngIf="fval.lastname.errors.pattern">Lastname should contain only alphabets and space</div>
+            </div>
+        </div>
+        </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-4">
+              <div class="form-outline">
+            <label for="email">Email</label>
+            <input type="email" formControlName="email" class="form-control" [(ngModel)]="user.email" [ngClass]="{ 'is-invalid': submitted && fval.email.errors }"/>
+            <div *ngIf="submitted && fval.email.errors" class="invalid-feedback">
+                <div *ngIf="fval.email.errors.required">Email is required</div>
+                <div *ngIf="fval.email.errors.pattern">Enter valid email id </div>
+                </div>
+        </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="form-outline">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" class="form-control" [(ngModel)]="user.password" [ngClass]="{ 'is-invalid': submitted && fval.password.errors }"/>
+            <div *ngIf="submitted && fval.password.errors" class="invalid-feedback">
+                <div *ngIf="fval.password.errors.required">Password is required</div>
+                <div *ngIf="fval.password.errors.pattern">Password should be greater than 8 characters long and should contain at least one uppercase, one numeric and a special character</div>
+                </div> 
+        </div>  
+        </div> 
+       </div>           
+        
+       <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="form-outline">
+              
+            <label for="dob">DOB  </label> 
+            <br>
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" [max]="maxDate"   (age)="ageCalculator()"  formControlName="dob" class="form-control form-control-lg" [(ngModel)]="user.dob" [ngClass]="{ 'is-invalid': submitted && fval.dob.errors }"/>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker ></mat-datepicker>
+              
+              <div *ngIf="submitted && fval.dob.errors" class="invalid-feedback">
+                <div *ngIf="fval.dob.errors.required">DOB is required</div>
+                <div *ngIf="submitted && maxAge">Age should be greater than 18</div>
+                
+                
+                
+                </div>
+              </mat-form-field>
+            </div>
+            </div>    
+            
+            
+
+            
+            <div class="col-md-6 mb-4">
+              <div class="form-outline">
+               <label for="contactnumber">Contact Number</label>
+               <input type="text" formControlName="contactnumber" class="form-control" [(ngModel)]="user.contactnumber" [ngClass]="{ 'is-invalid': submitted && fval.contactnumber.errors }"/>
+               <div *ngIf="submitted && fval.contactnumber.errors" class="invalid-feedback">
+                <div *ngIf="fval.contactnumber.errors.required">Contactnumber is required</div>
+                <div *ngIf="fval.contactnumber.errors.pattern">Phone number should be 10 digits only</div>
+                </div>
+            </div>
+            </div>
+          </div>       
+                    
+          <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="form-outline">
+            <label for="pan">PAN number</label>
+            <input type="text" formControlName="pan" class="form-control"  [(ngModel)]="user.pan" [ngClass]="{ 'is-invalid': submitted && fval.pan.errors }"/>
+            <div *ngIf="submitted && fval.pan.errors" class="invalid-feedback">
+              <div *ngIf="fval.pan.errors.required">PAN is required</div>
+              </div>
+          </div> 
+          </div>
+
+          <div class="col-md-6 mb-4">
+            <div class="form-outline">
+              <label for="address">Address</label>
+              <input type="text" formControlName="address" class="form-control" [(ngModel)]="user.address" [ngClass]="{ 'is-invalid': submitted && fval.address.errors }"/>
+              <div *ngIf="submitted && fval.address.errors" class="invalid-feedback">
+                <div *ngIf="fval.address.errors.required">Address is required</div>
+                </div>
+            </div> 
+            </div>
+            </div>
+
+           
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                <label for="country">Country</label>
+                <select placeholder="select Country" formControlName="country" class="form-control" [(ngModel)]="user.country" (change)="changeCountry($event.target.value)" [ngClass]="{ 'is-invalid': submitted && fval.country.errors }">
+                <option *ngFor="let count of countryList">{{count.name}}</option>
+                </select>
+                    <div *ngIf="submitted && fval.country.errors" class="invalid-feedback">
+                  <div *ngIf="fval.country.errors.required">Country is required</div>
+                  </div>
+              </div>
+              </div>
+              
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                <label for="state">State</label>
+                <select placeholder="select state" formControlName="state" class="form-control" [(ngModel)]="user.state" [ngClass]="{ 'is-invalid': submitted && fval.state.errors }">
+                <option *ngFor="let state of states">{{state}}</option>
+              </select>
+                <div *ngIf="submitted && fval.state.errors" class="invalid-feedback">
+                  <div *ngIf="fval.state.errors.required">State is required</div>
+                  </div>
+              </div> 
+              </div>
+              </div>
+
+
+
+                           
+  <div >      
+     <button type="submit" value="submit" class="btn btn-primary" (click)="open(mymodal)">Register</button>
+     
+     <ng-template #mymodal let-modal>
+       <div class="modal-header">
+         <h4 class="modal-title" id="modal-basic-title">Registered Successfully</h4>
+         <button type="button" classs="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+           <span aria-hidden="true">X</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         Your Membership id is {{memberId}}
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')" routerLink="/login">OK</button>"
+       </div>
+     </ng-template>
+     
+     <a routerLink="/login" class="btn btn-link">Cancel</a>
+</div>
+
+  
+
+
+
+</div>
+</form>
+
