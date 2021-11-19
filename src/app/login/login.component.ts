@@ -3,6 +3,8 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import User from 'src/app/User.json'
 import { Users } from '../users';
+import { MemberRegistrationService } from '../member-registration.service';
+import { ThrowStmt } from '@angular/compiler';
 
 
 
@@ -14,9 +16,11 @@ import { Users } from '../users';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
    submitted = false;
-   userobj: Users = User; 
+  userobj: Users = User; 
    loginusername: String; 
-   loginpswd: String; 
+   loginpswd: String;
+   incorrect=false;
+  // user =new Users();
   
   
 
@@ -24,6 +28,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private _service: MemberRegistrationService
 
   ) { 
     
@@ -47,14 +52,28 @@ onFormSubmit() {
   this.submitted = true;
   this.loginusername=this.loginForm.get('username')?.value;
   this.loginpswd=this.loginForm.get('password')?.value;
-  console.log('form value',this.loginusername);
-  console.log('json value',this.userobj.username);
-if((this.loginusername==(this.userobj.username)) && (this.loginusername==(this.userobj.username)))
-{
  
-this.router.navigateByUrl('/home');
-}
 
+if((this.loginusername==this.userobj.email) && (this.loginpswd==this.userobj.password) )
+{
+  this.router.navigateByUrl('/home');
+  this.incorrect=false;
+}
+else{
+  this.incorrect=true;
+}
+/*this._service.loginUserFromRemote(this.user).subscribe(
+  data=>{
+  console.log("response recieved");
+  this.router.navigateByUrl('/home')
+  },
+ error=>{
+   console.log("exception occured");
+     
+     }
+     
+ )*/
+ 
 if (this.loginForm.invalid) {
 return;
 }

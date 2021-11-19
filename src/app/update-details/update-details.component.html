@@ -6,7 +6,7 @@
            <div class="card-body p-4 p-md-5">
              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Update Details</h3>
 
-<form >
+<form [formGroup]="updateForm" (ngSubmit)="onFormSubmit()">
    <div>
       <div class="row">
          <div class="col-md-6 mb-4">
@@ -28,8 +28,12 @@
          <div class="col-md-6 mb-4">
              <div class="form-outline">
            <label for="email">Email  </label>
-           <input type="email"  value={{userobj.email}} class="form-control form-control-lg" >
-        </div>
+           <input type="email"  value={{userobj.email}} formControlName="email"  class="form-control form-control-lg" [ngClass]="{ 'is-invalid': fval.email.dirty && fval.email.errors }" >
+           <div *ngIf="fval.email.dirty && fval.email.errors" class="invalid-feedback">
+            <div *ngIf="fval.email.errors.required">Email is required</div>
+            <div *ngIf="fval.email.errors.pattern">Enter valid email id </div>
+            </div>
+          </div>
         </div>
         <div class="col-md-6 mb-4">
          <div class="form-outline">
@@ -49,8 +53,10 @@
       <div class="col-md-6 mb-4">
          <div class="form-outline">
             <label for="address">Address</label>
-            <input type="text"  value={{userobj.address}} class="form-control form-control-lg" >
-
+            <input type="text"  value={{userobj.address}} formControlName="address" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': fval.address.dirty && fval.address.errors }" >
+            <div *ngIf="fval.address.dirty && fval.address.errors" class="invalid-feedback">
+              <div *ngIf="fval.address.errors.required">Address is required</div>
+              </div>
       </div>
       </div>
       </div>
@@ -60,8 +66,11 @@
              <div class="form-outline">
 
       <label for="pan">PAN</label>
-      <input type="text"  value={{userobj.pan}} class="form-control form-control-lg" >
-       
+      <input type="text"  value={{userobj.pan}} formControlName="pan" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': fval.pan.dirty && fval.pan.errors }" >
+      <div *ngIf="fval.pan.dirty && fval.pan.errors" class="invalid-feedback">
+        <div *ngIf="fval.pan.errors.required">PAN is required</div>
+        <div *ngIf="fval.pan.errors.pattern">Invalid PAN number </div>
+        </div>
       
     </div>
     </div>
@@ -69,7 +78,10 @@
     <div class="col-md-6 mb-4">
       <div class="form-outline">
        <label for="country">Country</label>
-       <input type="text" value={{userobj.country}} class="form-control form-control-lg">
+       <input type="text" value={{userobj.country}} formControlName="country" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': fval.country.dirty && fval.country.errors }">
+       <div *ngIf="fval.country.dirty && fval.country.errors" class="invalid-feedback">
+        <div *ngIf="fval.country.errors.required">Country is required</div>
+        </div>
     </div>
     </div>
     </div>
@@ -77,17 +89,68 @@
       <div class="col-md-6 mb-4">
           <div class="form-outline">
       <label for="state">State</label>
-      <input type="text" value={{userobj.state}} class="form-control form-control-lg" >
+      <input type="text" value={{userobj.state}} formControlName="state" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': fval.state.dirty && fval.state.errors }" >
+      <div *ngIf="fval.state.dirty && fval.state.errors" class="invalid-feedback">
+        <div *ngIf="fval.state.errors.required">State is required</div>
+        </div>
    </div>
    </div>
    <div class="col-md-6 mb-4">
       <div class="form-outline">
       <label for="contactnumber">Contactnumber</label>
-      <input type="text" value={{userobj.contactnumber}} class="form-control form-control-lg" >
+      <input type="text" value={{userobj.contactnumber}} formControlName="contactnumber" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': fval.contactnumber.dirty && fval.contactnumber.errors }" >
+      <div *ngIf="fval.contactnumber.dirty && fval.contactnumber.errors" class="invalid-feedback">
+        <div *ngIf="fval.contactnumber.errors.required">Contactnumber is required</div>
+        <div *ngIf="fval.contactnumber.errors.pattern">Phone number should be 10 digits only</div>
+        </div>
    </div>
    </div>
    </div>
-  <div> 
+   
+     <div *ngIf="show1">   
+    <div class="row">
+    <div class="col-md-6 mb-4">
+    <div class="form-outline">
+          <label for="dependentName">Dependent Name</label>
+          <input type="text" value={{userobj.dependent1Name}} formControlName="dependent1Name" class="form-control form-control-lg" readonly >
+         
+            
+ </div>
+ </div>
+ <div class="col-md-6 mb-4">
+    <div class="form-outline">
+    <label for="dependentDOB">Dependent DOB</label>
+    <input type="text" value={{userobj.dependent1DOB}} formControlName="dependent1DOB" class="form-control form-control-lg" >
+    
+     
+      </div>
+ </div>
+ </div>
+ </div>
+
+
+ <div *ngIf="show2">   
+  <div class="row">
+  <div class="col-md-6 mb-4">
+  <div class="form-outline">
+        <label for="dependentName">Dependent Name</label>
+        <input type="text" value={{userobj.dependent2Name}} formControlName="dependent2Name" class="form-control form-control-lg" readonly >
+       
+          
+</div>
+</div>
+<div class="col-md-6 mb-4">
+  <div class="form-outline">
+  <label for="dependentDOB">Dependent DOB</label>
+  <input type="text" value={{userobj.dependent2DOB}} formControlName="dependent2DOB" class="form-control form-control-lg" >
+  
+   
+    </div>
+</div>
+</div>
+</div>
+
+  <div>
    <button type="submit" value="submit" class="btn btn-primary">Update</button>
   </div>
 

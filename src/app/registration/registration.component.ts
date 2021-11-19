@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ViewChild, ElementRef } from '@angular/core';
 import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Users } from '../users';
+import { MemberRegistrationService } from '../member-registration.service';
+import { Dependent } from '../dependent';
 
 
 
@@ -14,7 +17,6 @@ import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
-  user: any = {};
   maxDate = new Date();
   dob :any;
   Age :number;
@@ -23,20 +25,36 @@ export class RegistrationComponent implements OnInit {
   randomstring: string;
   closeResult:string
  success: boolean;
-  
+ count:number;
+ show:boolean;
+ dependent1present:boolean;
+ dependent2present:boolean;
+ dmemberid1: string;
+ dmemberid2: string;
+ user =new Users();
+ dependent =new Dependent();
+ 
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private _service: MemberRegistrationService
     
 
-  ) { }
+  ) {
+
+  }
+  
+  
+  
   memberId:String;
 
  
   ngOnInit(){
+    this.count=0;
+    this.show=true;
     this.registerForm = this.formBuilder.group({
       firstname: ['',[Validators.required,Validators.pattern('^[a-zA-Z][a-zA-Z ]*$')]],
       lastname: ['',[Validators.required,Validators.pattern('^[a-zA-Z][a-zA-Z ]*$')]],
@@ -44,14 +62,52 @@ export class RegistrationComponent implements OnInit {
       password: ['', [Validators.required,Validators.pattern('^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{9,}$')]],
       dob: ['',Validators.required],
       contactnumber: ['',[Validators.required,Validators.pattern('^[0-9]{10}$')]],
-      pan: ['',Validators.required],
+      pan: ['',[Validators.required,Validators.pattern('^[A-Z0-9]{12}$')]],
       address: ['',Validators.required],
       country: ['',Validators.required],
       state: ['',Validators.required],
+      dependents: this.formBuilder.array([this.formBuilder.group(
+        {
+          dependentName:[''],
+          dependentDOB:[''],
+        }
+        )]),
       
+    
   });
  
   }
+
+
+  get dependents(){
+    return this.registerForm.get('dependents') as FormArray;
+  }
+
+
+  addDependents() {
+   
+    
+   if(this.count==0)
+   {
+     this.dependent1present=true;
+     this.dmemberid1=this.randomnumber();
+   }
+   if(this.count==1)
+   {
+     this.dependent2present=true;
+     this.dmemberid2=this.randomnumber();
+   }
+   this.count=this.count+1;
+    this.dependents.push(this.formBuilder.group({dependentName:'',dependentDOB:'',}));
+   if(this.count==2)
+   {
+ this.show=false;
+   }
+  
+  }
+ 
+
+  
   
   open(content)
   {
@@ -64,6 +120,8 @@ export class RegistrationComponent implements OnInit {
     );
   }
   }
+
+
 
   private getDismissReason(reason: any): string{
     if(reason===ModalDismissReasons.ESC){
@@ -85,7 +143,7 @@ export class RegistrationComponent implements OnInit {
   ];
   states:Array<any>;
   changeCountry(count){
-    this .states=this.countryList.find(con => con.name==count).states;
+    this.states=this.countryList.find(con => con.name==count).states;
   }
  randomnumber()
  {
@@ -96,6 +154,8 @@ export class RegistrationComponent implements OnInit {
   return this.randomstring;
  }
   ageCalculator(){
+    this.dob=this.registerForm.get('dob')?.value;
+    console.log(this.dob);
     if(this.dob){
       this.maxAge=false;
       const convertAge = new Date(this.dob);
@@ -109,23 +169,34 @@ export class RegistrationComponent implements OnInit {
 
       
     }
+    return this.Age;
   }
 
   onFormSubmit() {
     this.submitted = true;
-   
+    console.log(this.maxAge);
     if(this.registerForm.valid){
       
       this.memberId=this.randomnumber();
       console.log(this.memberId);
       this.success=true;
+     /* this._service.RegisterUserFromRemote(this.user).subscribe(
+        data=>{
+        console.log("response recieved");
+        this.router.navigateByUrl('/login')
+        },
+       error=>{
+         console.log("exception occured");
+           
+           }
+       )*/
     }
 
     if (this.registerForm.invalid) {
     return;
     }
     
-    //this.router.navigateByUrl('/login');
+    
     }
 
 

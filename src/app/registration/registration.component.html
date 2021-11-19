@@ -19,7 +19,7 @@
       <div class="col-md-6 mb-4">
           <div class="form-outline">
            <label for="firstname">Firstname</label>
-           <input type="text" formControlName="firstname" class="form-control" [(ngModel)]="user.firstName" [ngClass]="{ 'is-invalid': submitted && fval.firstname.errors }"/>
+           <input type="text" formControlName="firstname" class="form-control" [(ngModel)]="user.firstname" [ngClass]="{ 'is-invalid': submitted && fval.firstname.errors }" />
            <div *ngIf="submitted && fval.firstname.errors" class="invalid-feedback">
             <div *ngIf="fval.firstname.errors.required">Firsttname is required</div>
             <div *ngIf="fval.firstname.errors.pattern">Firstname should contain only alphabets and space</div>
@@ -29,7 +29,7 @@
         <div class="col-md-6 mb-4">
           <div class="form-outline">
             <label for="lastname">Lastname</label>
-            <input type="text" formControlName="lastname" class="form-control"  [(ngModel)]="user.lastName" [ngClass]="{ 'is-invalid': submitted && fval.lastname.errors }"/>
+            <input type="text" formControlName="lastname" class="form-control"  [(ngModel)]="user.lastname" [ngClass]="{ 'is-invalid': submitted && fval.lastname.errors }"/>
             <div *ngIf="submitted && fval.lastname.errors" class="invalid-feedback">
             <div *ngIf="fval.lastname.errors.required">Lastname is required</div>
             <div *ngIf="fval.lastname.errors.pattern">Lastname should contain only alphabets and space</div>
@@ -67,13 +67,13 @@
             <label for="dob">DOB  </label> 
             <br>
             <mat-form-field>
-              <input matInput [matDatepicker]="picker" [max]="maxDate"   (age)="ageCalculator()"  formControlName="dob" class="form-control form-control-lg" [(ngModel)]="user.dob" [ngClass]="{ 'is-invalid': submitted && fval.dob.errors }"/>
+              <input matInput [matDatepicker]="picker" [max]="maxDate"  (dateChange)="ageCalculator()" formControlName="dob" class="form-control form-control-lg" [(ngModel)]="user.dob" [ngClass]="{ 'is-invalid': submitted && fval.dob.errors }"/>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker ></mat-datepicker>
-              
+              <div *ngIf="maxAge" class="text-danger" >Age should be greater than 18</div>
               <div *ngIf="submitted && fval.dob.errors" class="invalid-feedback">
                 <div *ngIf="fval.dob.errors.required">DOB is required</div>
-                <div *ngIf="submitted && maxAge">Age should be greater than 18</div>
+               
                 
                 
                 
@@ -104,6 +104,7 @@
             <input type="text" formControlName="pan" class="form-control"  [(ngModel)]="user.pan" [ngClass]="{ 'is-invalid': submitted && fval.pan.errors }"/>
             <div *ngIf="submitted && fval.pan.errors" class="invalid-feedback">
               <div *ngIf="fval.pan.errors.required">PAN is required</div>
+              <div *ngIf="fval.pan.errors.pattern">Invalid PAN number </div>
               </div>
           </div> 
           </div>
@@ -146,8 +147,34 @@
               </div>
               </div>
 
+              
+              <div formArrayName="dependents">
+                <div *ngIf="show">
+                <button type="button" (click)="addDependents()">Add Dependents</button> 
+               </div>
+                 <div *ngFor="let item of dependents.controls; let pointIndex=index" [formGroupName]="pointIndex" >
+                  <div *ngIf="pointIndex>0 && pointIndex<3">
+                    <div class="row">
+                      <div class="col-md-6 mb-4">
+                  Dependant{{pointIndex}} Name:<input formControlName="dependentName" class="form-control"   />  
+                 
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <mat-form-field>
+                  Dependant{{pointIndex}} DOB:<input matInput [matDatepicker]="picker" [max]="maxDate"   formControlName="dependentDOB" class="form-control form-control-lg" />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker ></mat-datepicker>
+              </mat-form-field>
+                    </div>
+                   </div>
+              
+              
+                </div>
+</div>
 
-
+            </div>
+            
+             
                            
   <div >      
      <button type="submit" value="submit" class="btn btn-primary" (click)="open(mymodal)">Register</button>
@@ -162,8 +189,14 @@
        <div class="modal-body">
          Your Membership id is {{memberId}}
        </div>
+       <div *ngIf="dependent1present">
+        Your Membership id  for dependent1 is {{dmemberid1}}
+       </div>
+       <div *ngIf="dependent2present">
+        Your Membership id for dependent2 is {{dmemberid2}}
+       </div>
        <div class="modal-footer">
-         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')" routerLink="/login">OK</button>"
+         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')" routerLink="/login">OK</button>
        </div>
      </ng-template>
      
@@ -177,3 +210,10 @@
 </div>
 </form>
 
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</section>

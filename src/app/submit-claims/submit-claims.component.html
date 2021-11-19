@@ -22,9 +22,10 @@
         <div class="col-md-6 mb-4">
         <div class="form-outline">
             <label for="firstname">Firstname</label>
-            <input type="text" formControlName="firstname" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && fval.firstname.errors }"/>
+            <input type="text" formControlName="firstname" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && fval.firstname.errors }" [(ngModel)]="user.firstname"/>
             <div *ngIf="submitted && fval.firstname.errors" class="invalid-feedback">
-            <div *ngIf="fval.firstname.errors.required">Lastname is required</div>
+            <div *ngIf="fval.firstname.errors.required">Firstname is required</div>
+            <div *ngIf="fval.firstname.errors.pattern">Firstname should only contain alphabets and space</div>
             </div>
         </div>
         </div>
@@ -34,9 +35,10 @@
         <div class="col-md-6 mb-4">
           <div class="form-outline">
             <label for="lastname">Lastname</label>
-            <input type="text" formControlName="lastname" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && fval.lastname.errors }"/>
+            <input type="text" formControlName="lastname" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && fval.lastname.errors }" [(ngModel)]="user.lastname"/>
             <div *ngIf="submitted && fval.lastname.errors" class="invalid-feedback">
             <div *ngIf="fval.lastname.errors.required">Lastname is required</div>
+            <div *ngIf="fval.lastname.errors.pattern">Lastname should only contain alphabets and space</div>
             </div>
         </div>
         </div>
@@ -46,11 +48,16 @@
         <div class="col-md-6 mb-4">
 
           <div class="form-outline">
-              <label for="admissionDate">Date of Admission</label>
-              <input type="date" formControlName="admissionDate" id="admissionDate"  class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && fval.admissionDate.errors }"/>
+            <label for="admissionDate">Date of Admission</label>
+            <mat-form-field>
+              
+              <input matInput [matDatepicker]="picker" [max]="maxDate"   formControlName="admissionDate" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && fval.admissionDate.errors }" />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker ></mat-datepicker>
               <div *ngIf="submitted && fval.admissionDate.errors" class="invalid-feedback">
                 <div *ngIf="fval.admissionDate.errors.required">DOB is required</div>
                 </div>
+                </mat-form-field>
             </div>  
             </div>  
       </div>
@@ -58,11 +65,17 @@
             <div class="row">
               <div class="col-md-6 mb-4">
                 <div class="form-outline">
+
             <label for="dischargeDate">Date of Discharge</label>
-            <input type="date" formControlName="dischargeDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.dischargeDate.errors }"/>
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker1" [min]="fval.admissionDate.value" [max]="maxDate"   formControlName="dischargeDate" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && fval.dischargeDate.errors }" />
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            
             <div *ngIf="submitted && fval.dischargeDate.errors" class="invalid-feedback">
               <div *ngIf="fval.dischargeDate.errors.required">DOB is required</div>
               </div>
+            </mat-form-field>
           </div> 
           </div>
           
@@ -72,7 +85,7 @@
           <div class="col-md-6 mb-4">
             <div class="form-outline">
               <label for="Provider">Provider Name </label>
-              <input type="text" formControlName="Provider" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.Provider.errors }"/>
+              <input type="text" formControlName="Provider" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.Provider.errors }" />
               <div *ngIf="submitted && fval.Provider.errors" class="invalid-feedback">
                 <div *ngIf="fval.Provider.errors.required">Address is required</div>
                 </div>
@@ -84,15 +97,31 @@
               <div class="col-md-6 mb-4">
                 <div class="form-outline">
                 <label for="billAmount">Total Bill Amount</label>
-                <input type="number" formControlName="billAmount" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.billAmount.errors }"/>
+                <input type="text" formControlName="billAmount" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.billAmount.errors }" />
                 <div *ngIf="submitted && fval.billAmount.errors" class="invalid-feedback">
-                  <div *ngIf="fval.billAmount.errors.required">Address is required</div>
+                  <div *ngIf="fval.billAmount.errors.required">Bill Amount is required</div>
+                  <div *ngIf="fval.billAmount.errors.pattern">Bill Amount should be numeric only</div>
                   </div>
               </div>  
               </div>
               </div>               
             
-     <button type="submit" value="submit" class="btn btn-primary">Submit Claims</button>
+     <button type="submit" value="submit" class="btn btn-primary" (click)="open(mymodal)">Submit Claims</button>
+
+     <ng-template #mymodal let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Claim Submi Successfully</h4>
+        <button type="button" classs="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">X</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Your Claim id is {{claimId}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')" routerLink="/home">OK</button>"
+      </div>
+    </ng-template>
      
 </div>
 </form>

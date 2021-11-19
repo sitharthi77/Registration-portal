@@ -7,7 +7,8 @@
           </mat-card-header>
             <mat-form-field class="example-full-width">
        
-        <input matInput type="email" formControlName="username" class="form-control" [(ngModel)]="loginusername" [ngClass]="{ 'is-invalid': submitted && fval.username.errors }" placeholder="Enter Username here"/>
+   
+        <input matInput type="email" formControlName="username" class="form-control" [(ngModel)]="loginusername" [ngClass]="{ 'is-invalid': submitted && fval.username.errors }" placeholder="Enter Username here" />
         <mat-error  *ngIf="submitted && fval.username.errors" class="invalid-feedback">
             <mat-error  *ngIf="fval.username.errors.required">Username is required</mat-error>
             <mat-error *ngIf="fval.username.errors.pattern">Enter valid email address</mat-error>
@@ -19,7 +20,7 @@
     
             <mat-form-field class="example-full-width"> 
         
-        <input matInput type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.password.errors }" placeholder="Enter Password here"/>
+        <input matInput type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.password.errors }" placeholder="Enter Password here" />
         <mat-error *ngIf="submitted && fval.password.errors" class="invalid-feedback">
             <mat-error  *ngIf="fval.password.errors.required">Password is required</mat-error>
             <mat-error  *ngIf="fval.password.errors.pattern">Password should be greater than 8 characters long and should contain at least one uppercase, one numeric and a special character</mat-error>  
@@ -29,7 +30,13 @@
      <button type="submit" value="submit" class="btn btn-primary" mat-raised-button color="primary">Login</button>
      <a routerLink="/register" class="btn btn-link">Register</a>
           </mat-card-actions>
+
+          
+  <mat-error *ngIf="submitted && incorrect" class="invalid-feedback">
+    Username or Password is incorrect
+    </mat-error>
     </mat-card>
+
 
 </form>
 </div>

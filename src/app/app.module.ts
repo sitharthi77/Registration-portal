@@ -30,6 +30,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule } from '@angular/material/dialog';
 import {MatDialogActions,MatDialogClose,MatDialogContent,MatDialogTitle,} from '@angular/material/dialog';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -70,6 +71,7 @@ const mats=[
     MatInputModule,
     MatDialogModule,
     NgbModule,
+    HttpClientModule,
     mats
   ],
   exports: [RouterModule,mats,MatDialogClose,MatDialogTitle,MatDialogContent,MatDialogActions,],

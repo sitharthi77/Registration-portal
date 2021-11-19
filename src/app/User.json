@@ -1,5 +1,5 @@
 {
-    "username": "sithu@gmail.com",
+    
     "firstname": "sithu",
     "lastname": "arthi",
     "password": "Sweety@10",
@@ -10,5 +10,11 @@
     "country" : "india",
     "state" : "Tamilnadu",
     "contactnumber" : "7546899998",
-    "age" : "53"
+    "age" : "53",
+     "dependent1Name" : "kavi",
+    "dependent1DOB" : "10/20/1998",
+    "dependent2Name": "pavi",
+    "dependent2DOB": "09/09/1999"
+    
+   
 }
